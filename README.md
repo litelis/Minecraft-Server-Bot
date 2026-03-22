@@ -1,175 +1,229 @@
-# 🟢 Minecraft Server Bot para Raspberry Pi
+# 🎮 **MINECRAFT VANILLA SERVER + BOT DISCORD para PRINCIPIANTES** (Raspberry Pi 2024)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg)](https://www.python.org/)
+**🤯 GUÍA COMPLETA DESDE CERO** - No necesitas saber nada de programación
 
-**Bot de Discord que automatiza un servidor Vanilla/PaperMC 1.21+ en Raspberry Pi** con comandos slash `/start_server` y `/stop_server`.
-
-## 🎯 Descripción
-
-Este repositorio contiene un bot de Discord completo que permite **iniciar y detener** un servidor de Minecraft en tu Raspberry Pi con un solo comando. Perfecto para servidores pequeños (2-10 jugadores).
-
-**Características:**
-- ✅ Comandos slash modernos de Discord
-- ✅ Gestión automática con Screen
-- ✅ PaperMC optimizado para ARM (Raspberry Pi)
-- ✅ Configuración automática de memoria RAM
-- ✅ Detención segura del servidor
-- ✅ Listo para producción 24/7
-
-## 🏗️ Arquitectura del Sistema
-
-```
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────┐
-│   Discord Bot   │────▶│   Raspberry Pi   │────▶│ Minecraft Server│
-│   (bot.py)      │     │   (Linux ARM)    │     │   (minecraft/)  │
-└─────────────────┘     └────────┬─────────┘     └─────────────────┘
-                                │
-                       ┌────────▼─────────┐
-                       │ Screen Session   │
-                       │ (minecraft)      │
-                       └──────────────────┘
-```
-
-## 💻 Requisitos de Hardware (Raspberry Pi)
-
-| Modelo | RAM Recomendada | Jugadores | Estabilidad |
-|--------|-----------------|-----------|-------------|
-| Pi 3B+ | **❌ No recomendado** | 1-2 | Baja |
-| **Pi 4 (4GB)** | ✅ **Recomendado** | 2-6 | Excelente |
-| **Pi 4 (8GB)** | 🎖️ **Óptimo** | 6-12 | Perfecta |
-| **Pi 5 (4GB+)** | 🚀 **Ideal** | 10-20 | Sobrada |
-
-**Consumo de Recursos (aprox.):**
-```
-2 jugadores:  800MB RAM, 20-30% CPU
-5 jugadores: 1400MB RAM, 50-70% CPU  
-10 jugadores: 1900MB RAM, 80-95% CPU
-```
-
-## 🛠️ Instalación Paso a Paso (Raspberry Pi)
-
-### 1. Preparar Sistema
-```bash
-sudo apt update && sudo apt upgrade -y
-sudo apt install python3 python3-pip python3-venv screen wget curl git -y
-```
-
-### 2. Clonar Repositorio
-```bash
-git clone https://github.com/tu-usuario/minecraft-server-bot.git
-cd minecraft-server-bot
-```
-
-### 3. Configurar Entorno Python
-```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-### 4. Configurar Bot Discord
-1. Crea un bot en [Discord Developer Portal](https://discord.com/developers/applications)
-2. Copia el **TOKEN** del bot
-3. Crea archivo `.env`:
-```
-DISCORD_TOKEN=tu_token_aqui
-```
-4. Invita el bot a tu servidor con **scope de comandos de aplicación**
-
-### 5. Dar permisos a scripts
-```bash
-chmod +x start_server.sh stop_server.sh
-```
-
-### 6. Iniciar Bot
-```bash
-python bot.py
-```
-
-## 🎮 Comandos del Bot
-
-| Comando | Descripción | Permisos |
-|---------|-------------|----------|
-| `/start_server` | ✅ Inicia servidor Minecraft | Todos |
-| `/stop_server` | ⏹️ Detiene servidor | Todos |
-
-## 🔧 Configuración Avanzada
-
-### Editar memoria RAM
-En `start_server.sh`:
-```bash
-RAM_MIN="1024M"  # Cambiar según tu Pi
-RAM_MAX="2048M"
-```
-
-### Puerto del servidor
-Edita `minecraft_server/server.properties` después del primer inicio:
-```
-server-port=25565
-```
-
-### Autoreinicio
-Para restart automático cada 6h, edita `start_server.sh`:
-```bash
-screen -dmS minecraft bash -c "while true; do java ...; sleep 21600; done"
-```
-
-## 🐳 Docker (Opcional)
-
-```bash
-docker build -t minecraft-bot .
-docker run -d --restart=always -v $(pwd):/app minecraft-bot
-```
-
-## 📊 Monitoreo
-
-**Comandos útiles:**
-```bash
-# Ver logs del servidor
-screen -r minecraft
-
-# Ver uso de RAM
-free -h
-
-# Ver procesos Java
-ps aux | grep java
-
-# Monitoreo en tiempo real
-htop
-```
-
-## 🤔 Solución de Problemas
-
-| Problema | Solución |
-|----------|----------|
-| `eula.txt` | Se genera automáticamente |
-| `OutOfMemory` | Reduce `RAM_MAX` en `start_server.sh` |
-| Bot no responde | Verifica `.env` y permisos del bot |
-| Puerto ocupado | Cambia `server.properties` |
-
-## 📈 Rendimiento Optimizado
-
-Este setup está **optimizado específicamente para ARM** (Raspberry Pi):
-- PaperMC (fork optimizado de Vanilla)
-- Flags de Java ARM-native
-- Screen para estabilidad 24/7
-- Gestión inteligente de memoria
-
-## 🚀 Contribuir
-
-1. Fork del repositorio
-2. Crea feature branch (`git checkout -b feature/xyz`)
-3. Commit (`git commit -m 'Add xyz'`)
-4. Push (`git push origin feature/xyz`)
-5. Abre Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la [Licencia MIT](LICENSE) - ver archivo `LICENSE` para detalles.
+## 📋 **ÍNDICE**
+1. [Requisitos Hardware](#hardware)
+2. [Instalación Raspberry Pi Paso a Paso](#instalacion)
+3. [Configurar Bot Discord](#discord)
+4. [Hacer Servidor PÚBLICO Mundial](#publico)
+5. [IP FIJA Gratis (No cambia nunca)](#ipfija)
+6. [Comandos Bot](#comandos)
 
 ---
 
-**¡Listo para jugar! 🎮** Clona, configura y disfruta de tu servidor Minecraft 24/7 controlado por Discord.
+## 💻 **1. REQUISITOS HARDWARE** {#hardware}
 
-**Creado con ❤️ para la comunidad Raspberry Pi + Minecraft**
+```
+✅ Raspberry Pi 4 (4GB+) o Pi 5 = PERFECTO
+✅ MicroSD 32GB+ (Clase 10)
+✅ Fuente 5V/3A oficial
+✅ Router con puerto 25565
+✅ Internet estable
+```
+
+**❌ NO funciona:** Pi 3, PC viejo <4GB RAM
+
+---
+
+## 🔧 **2. INSTALACIÓN DESDE CERO** {#instalacion}
+
+### **Paso 1: Preparar Raspberry Pi**
+```bash
+# Actualizar sistema (IMPORTANTE)
+sudo apt update &amp;&amp; sudo apt upgrade -y
+sudo apt install -y git wget screen curl python3 python3-pip python3-venv nano htop
+sudo reboot
+```
+
+### **Paso 2: Clonar Repositorio**
+```bash
+cd ~
+git clone https://github.com/tu-usuario/minecraft-vanilla-bot.git
+cd minecraft-vanilla-bot
+ls -la  # Ver todos archivos ✓
+```
+
+### **Paso 3: Instalar Python**
+```bash
+python3 -m venv venv
+source venv/bin/activate  # (Aparece (venv) )
+pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+### **Paso 4: Primera Ejecución - CREAR SERVIDOR MINECRAFT**
+```bash
+chmod +x *.sh
+./start_server.sh
+```
+
+**¡ESPERA 10-15 MINUTOS!** Se descarga:
+```
+✅ server.jar OFICIAL Vanilla 1.21.4 (https://launcher.mojang.com)
+✅ Mundo generado automáticamente  
+✅ eula.txt aceptado ✓
+```
+
+**Cuando veas "Done" presiona Ctrl+C** para parar.
+
+### **Paso 5: Verificar Mundo Creado**
+```bash
+ls minecraft_server/
+# Debe mostrar: server.jar  eula.txt  server.properties  world/
+```
+
+---
+
+## 🔑 **3. CONFIGURAR BOT DISCORD** {#discord}
+
+### **3.1 Crear Bot GRATIS**
+1. Ve: https://discord.com/developers/applications
+2. **"New Application"** → nombre "MiMinecraftBot"
+3. **"Bot"** → **"Add Bot"**
+4. **Copy TOKEN** (guárdalo seguro)
+5. **OAuth2 → URL Generator**:
+   - Scopes: `bot` + `applications.commands`
+   - Bot Permissions: `Send Messages`
+6. **Pega URL en navegador** → invita a tu servidor Discord
+
+### **3.2 Configurar Token**
+```bash
+cp .env.example .env
+nano .env
+```
+**Pega tu TOKEN:**
+```
+DISCORD_TOKEN=MTIzNDU2Nzg5MDEyMzQ1Njc4OXYZ.abc123TuTokenSecreto
+```
+
+### **3.3 Iniciar Bot**
+```bash
+source venv/bin/activate
+python bot.py
+```
+**¡Debe decir:** "Synced 2 command(s)"
+
+---
+
+## 🌍 **4. HACER SERVIDOR PÚBLICO MUNDIAL** {#publico}
+
+### **4.1 Configurar Puerto 25565**
+1. **Router** (192.168.1.1):
+   - Port Forward: `UDP/TCP 25565` → `IP de tu Pi` (ej: 192.168.1.100)
+2. **Ver IP Pi:**
+   ```bash
+   ip addr show | grep 192.168
+   ```
+3. **Probar puerto abierto:**
+   https://www.yougetsignal.com/tools/open-ports/
+
+### **4.2 Configurar server.properties**
+```bash
+cd minecraft_server
+nano server.properties
+```
+**Cambios importantes:**
+```
+server-port=25565
+online-mode=true
+difficulty=normal
+pvp=true
+motd=¡Mi Servidor Vanilla Pi!
+max-players=10
+```
+**Guarda: Ctrl+O → Enter → Ctrl+X**
+
+---
+
+## 🏠 **5. IP FIJA GRATIS (No cambia nunca)** {#ipfija}
+
+**Tu IP de internet cambia?** Usa **No-IP GRATIS**:
+
+### **Opción A: No-IP (Recomendado)**
+1. Regístrate: https://www.noip.com/sign-up
+2. Crea hostname: `mi-minecraft.ddns.net`
+3. Instala en Pi:
+```bash
+wget http://www.no-ip.com/client/noip-duc-linux.zip
+unzip noip-duc-linux.zip
+cd noip-2.1.9-1/
+make
+make install
+noip2
+```
+**Configura auto-inicio:**
+```bash
+crontab -e
+# Agrega línea:
+@reboot /usr/local/bin/noip2
+```
+
+### **Opción B: IP Estática Router**
+Router → DHCP → Reserva IP fija para MAC de Pi
+
+**¡Tu servidor ahora es:** `mi-minecraft.ddns.net:25565`
+
+---
+
+## 🎯 **6. COMANDOS BOT DISCORD** {#comandos}
+
+```
+En tu Discord:
+/start_server  → ✅ Inicia servidor público
+/stop_server   → ⏹️ Para servidor
+
+¡Funciona desde móvil/PC!
+```
+
+## 🔍 **VERIFICAR TODO FUNCIONA**
+
+```bash
+# Estado servidor
+screen -ls
+
+# Ver logs
+screen -r minecraft
+
+# RAM/CPU
+htop
+
+# IP pública
+curl ifconfig.me
+```
+
+## 🎉 **¡LISTO! Invita Amigos**
+
+**Amigos conectan:**
+```
+Servidor: mi-minecraft.ddns.net:25565
+Versión: 1.21.4 Vanilla
+```
+
+---
+
+## 🆘 **PROBLEMAS COMUNES**
+
+| Error | Solución |
+|-------|----------|
+| "Connection refused" | ✅ Port Forward 25565 |
+| "Can't resolve host" | ✅ No-IP configurado |
+| "Out of memory" | Usa Pi 4GB+ |
+| Bot no responde | Token correcto en .env |
+
+## 📱 **EJECUTAR 24/7 (Auto inicio)**
+
+```bash
+# Auto inicio bot
+crontab -e
+@reboot cd /home/pi/minecraft-vanilla-bot &amp;&amp; source venv/bin/activate &amp;&amp; python bot.py
+```
+
+**¡SERVIDOR MINECRAFT VANILLA PÚBLICO funcionando!** 🌍🎮
+
+**Enlaces 2024 actualizados:**
+- Vanilla 1.21.4: launcher.mojang.com
+- No-IP: noip.com
+- Discord Dev: discord.com/developers/applications
+
+**Creado para PRINCIPIANTES TOTALES ✓**

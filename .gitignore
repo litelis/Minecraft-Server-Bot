@@ -1,0 +1,6 @@
+venv/
+.env
+minecraft_server/
+*.log
+__pycache__/
+*.pyc
