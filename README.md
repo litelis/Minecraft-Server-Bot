@@ -1,4 +1,4 @@
-# 🎮 **MINECRAFT VANILLA SERVER + BOT DISCORD para PRINCIPIANTES** (Raspberry Pi 2024)
+# 🎮 **MINECRAFT VANILLA SERVER + BOT DISCORD para PRINCIPIANTES** (Raspberry Pi 2026)
 
 **🤯 GUÍA COMPLETA DESDE CERO** - No necesitas saber nada de programación
 
