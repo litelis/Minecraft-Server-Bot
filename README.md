@@ -40,7 +40,7 @@ sudo reboot
 ```bash
 cd ~
 git clone https://github.com/tu-usuario/minecraft-vanilla-bot.git
-cd minecraft-vanilla-bot
+cd minecraft-server-bot
 ls -la  # Ver todos archivos ✓
 ```
 
